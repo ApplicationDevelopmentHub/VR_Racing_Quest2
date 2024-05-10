@@ -13,51 +13,92 @@ public class CustomInput : MonoBehaviour
     public Rigidbody CarParent;
 
     //public GameObject VRController;
-    public float AccForce = 5.0f;
-    public float BrakeForce = 0.0f;
+    //max value= 90
+    public float VelocityValue = 20.0f;
+    //public float BrakeForce = 0.0f;
     // Start is called before the first frame update
     private void Update()
     {
-        if (LeftX_Steer.action.IsPressed())
-        {      
-            CarParent.gameObject.transform.Rotate(0.0f, -3.0f, 0.0f);
-        }
-        if (RightA_Steer.action.IsPressed())
+        if (GameStateHandler.gameState == GameStateHandler.GameState.Game)
         {
-            CarParent.gameObject.transform.Rotate(0.0f, 3.0f, 0.0f);
-        }
-        if (RightTrigger_Acc.action.IsPressed())
-        {
-            Debug.Log("acc");
-            CarParent.velocity = CarParent.transform.forward * 30.0f;
-        }
-        if (LeftTrigger_Brake.action.IsPressed())
-        {
-            Debug.Log("brake");
-            CarParent.velocity = CarParent.transform.forward * (-30.0f);
-        }
+            if (LeftX_Steer.action.IsPressed())
+            {
+                CarParent.gameObject.transform.Rotate(0.0f, -3.0f, 0.0f);
+            }
+            if (RightA_Steer.action.IsPressed())
+            {
+                CarParent.gameObject.transform.Rotate(0.0f, 3.0f, 0.0f);
+            }
+            if (RightTrigger_Acc.action.IsPressed())
+            {
+                Debug.Log("acc");
+                CarParent.velocity = CarParent.transform.forward * VelocityValue;
+                if (VelocityValue <= 89.9)
+                {
+                    VelocityValue = VelocityValue + 0.5f;
+                }
+            }
+            if (LeftTrigger_Brake.action.IsPressed())
+            {
+                Debug.Log("brake");
+                CarParent.velocity = CarParent.transform.forward * VelocityValue;
+                if (VelocityValue >= -30.0f)
+                {
+                    VelocityValue = VelocityValue - 0.5f;
+                }
+            }
+            if (!RightTrigger_Acc.action.IsPressed() && !LeftTrigger_Brake.action.IsPressed())
+            {
+                if (VelocityValue > 20.0f)
+                {
+                    VelocityValue = VelocityValue - 0.1f;
+                }
+                if (VelocityValue < 20.0f)
+                {
+                    VelocityValue = VelocityValue + 0.1f;
+                }
+            }
 
 
-        //keyboard controls
-        if (Input.GetKey(KeyCode.D))
-        {
-            Debug.Log("left steer");
-            CarParent.gameObject.transform.Rotate(0.0f, 1.0f, 0.0f);
+            //keyboard controls
+            if (Input.GetKey(KeyCode.D))
+            {
+                Debug.Log("left steer");
+                CarParent.gameObject.transform.Rotate(0.0f, 1.0f, 0.0f);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                Debug.Log("Right steer");
+                CarParent.gameObject.transform.Rotate(0.0f, -1.0f, 0.0f);
+            }
+            if (Input.GetKey(KeyCode.W))
+            {
+                Debug.Log("acc");
+                CarParent.velocity = CarParent.transform.forward * VelocityValue;
+                if (VelocityValue <= 89.9)
+                {
+                    VelocityValue = VelocityValue + 0.1f;
+                }
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                Debug.Log("brake");
+                CarParent.velocity = CarParent.transform.forward * VelocityValue * -1.0f;
+                if (VelocityValue >= -30.0f)
+                {
+                    VelocityValue = VelocityValue - 0.1f;
+                }
+            }
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            Debug.Log("Right steer");
-            CarParent.gameObject.transform.Rotate(0.0f, -1.0f, 0.0f);
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            Debug.Log("acc");
-            CarParent.velocity = CarParent.transform.forward* 10.0f;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            Debug.Log("brake");
-            CarParent.velocity = CarParent.transform.position * -10.0f;
-        }
+        //if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        //{
+        //    if (VelocityValue > 10.0f) { 
+        //        VelocityValue = VelocityValue - 0.1f;
+        //    }
+        //    if (VelocityValue < 10.0f)
+        //    {
+        //        VelocityValue = VelocityValue + 0.1f;
+        //    }
+        //}
     }   
 }

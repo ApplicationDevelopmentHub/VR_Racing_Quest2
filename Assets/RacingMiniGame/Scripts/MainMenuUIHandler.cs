@@ -14,4 +14,8 @@ public class MainMenuUIHandler : MonoBehaviour
         PlayerPrefs.SetInt("TrackIndex", TrackDropdown.value);
         SceneManager.LoadScene(1);
     }
+    public void QuitApp()
+    {
+        Application.Quit();
+    }
 }

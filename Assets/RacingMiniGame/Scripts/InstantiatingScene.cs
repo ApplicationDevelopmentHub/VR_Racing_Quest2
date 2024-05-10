@@ -37,7 +37,7 @@ public class InstantiatingScene : MonoBehaviour
         tempTrack.transform.parent = Environment.transform;
 
         //set camera position
-        CameraXRRig.transform.position = CameraCustomPositions[_carIndex].position;
+        //CameraXRRig.transform.position = CameraCustomPositions[_carIndex].position;
 
     }
 }
