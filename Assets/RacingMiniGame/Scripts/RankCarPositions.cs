@@ -23,7 +23,7 @@ public class RankCarPositions : MonoBehaviour
         else
         {
             target = target2;
-            cars.Add(car2Track1);
+            cars.Add(car1Track2);
             cars.Add(car2Track2);
             cars.Add(playerCar);
         }

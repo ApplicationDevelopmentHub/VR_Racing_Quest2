@@ -12,6 +12,8 @@ public class GameStateHandler : MonoBehaviour
     public GameObject StartUI; //enabled by default, rest disabled
     public GameObject GameUI;
 
+    public GameObject[] carModels;
+
     //Game state: change UI, enable controls, enable splines
     private int _timer=5;
     public enum GameState
@@ -58,6 +60,10 @@ public class GameStateHandler : MonoBehaviour
         EnableAICars.Instance.DisableAICars();
         GameUI.SetActive(false);
         EndStateHandlerCar.Instance.EnableEndUI();
+        for(int i = 0; i < carModels.Length; i++)
+        {
+            carModels[i].SetActive(false);
+        }
     }
 
 }

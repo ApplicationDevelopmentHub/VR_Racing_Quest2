@@ -5,10 +5,10 @@ using UnityEngine.Splines;
 public class EnableAICars : MonoBehaviour
 {
     public static EnableAICars Instance;
-    public SplineAnimate Car1Track1;
-    public SplineAnimate Car1Track2;
-    public SplineAnimate Car2Track1;
-    public SplineAnimate Car2Track2;
+    public SplineAnimate Track1_1;
+    public SplineAnimate Track1_2;
+    public SplineAnimate Track2_1;
+    public SplineAnimate Track2_2;
 
     // Start is called before the first frame update
     void Start()
@@ -26,22 +26,27 @@ public class EnableAICars : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("TrackIndex") == 0)
         {
-            Car1Track1.enabled = true;
-            Car2Track1.enabled = true;
+            Track1_1.enabled = true;
+            Track1_2.enabled = true;
         }
 
         if (PlayerPrefs.GetInt("TrackIndex") == 1)
         {
-            Car1Track2.enabled = true;
-            Car2Track2.enabled = true;
+            Track2_1.enabled = true;
+            Track2_2.enabled = true;
         }
     }
 
     public void DisableAICars()
     {
-        Car1Track1.enabled = false;
-        Car2Track1.enabled = false;
-        Car1Track2.enabled = false;
-        Car2Track2.enabled = false;
+        Track1_1.enabled = false;
+        Track1_2.enabled = false;
+        Track2_1.enabled = false;
+        Track2_2.enabled = false;
+
+        Track1_1.gameObject.SetActive(false);
+        Track1_2.gameObject.SetActive(false);
+        Track2_1.gameObject.SetActive(false);
+        Track2_2.gameObject.SetActive(false);
     }
 }

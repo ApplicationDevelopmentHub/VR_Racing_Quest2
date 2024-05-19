@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class CustomInput : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class CustomInput : MonoBehaviour
     public InputActionReference RightA_Steer = null;
     public InputActionReference RightTrigger_Acc = null;
     public InputActionReference LeftTrigger_Brake = null;
+    public InputActionReference Resetgame=null;
 
     public Rigidbody CarParent;
 
@@ -21,30 +23,46 @@ public class CustomInput : MonoBehaviour
     {
         if (GameStateHandler.gameState == GameStateHandler.GameState.Game)
         {
+            if (Resetgame.action.IsPressed())
+            {
+                SceneManager.LoadScene(0);
+            }
             if (LeftX_Steer.action.IsPressed())
             {
-                CarParent.gameObject.transform.Rotate(0.0f, -3.0f, 0.0f);
+                //CarParent.gameObject.transform.Rotate(0.0f, -3.0f, 0.0f);
+                CarParent.gameObject.transform.Rotate(0.0f, 1.0f, 0.0f);
             }
             if (RightA_Steer.action.IsPressed())
             {
-                CarParent.gameObject.transform.Rotate(0.0f, 3.0f, 0.0f);
+                //CarParent.gameObject.transform.Rotate(0.0f, 3.0f, 0.0f);
+                CarParent.gameObject.transform.Rotate(0.0f, -1.0f, 0.0f);
+
             }
             if (RightTrigger_Acc.action.IsPressed())
             {
-                Debug.Log("acc");
-                CarParent.velocity = CarParent.transform.forward * VelocityValue;
+                //CarParent.velocity = CarParent.transform.forward * VelocityValue;
+                //if (VelocityValue <= 89.9)
+                //{
+                //    VelocityValue = VelocityValue + 0.5f;
+                //}
+                CarParent.linearVelocity = CarParent.transform.forward * VelocityValue;
                 if (VelocityValue <= 89.9)
                 {
-                    VelocityValue = VelocityValue + 0.5f;
+                    VelocityValue = VelocityValue + 0.1f;
                 }
             }
             if (LeftTrigger_Brake.action.IsPressed())
             {
-                Debug.Log("brake");
-                CarParent.velocity = CarParent.transform.forward * VelocityValue;
+                //Debug.Log("brake");
+                //CarParent.velocity = CarParent.transform.forward * VelocityValue;
+                //if (VelocityValue >= -30.0f)
+                //{
+                //    VelocityValue = VelocityValue - 0.5f;
+                //}
+                CarParent.linearVelocity = CarParent.transform.forward * VelocityValue * -1.0f;
                 if (VelocityValue >= -30.0f)
                 {
-                    VelocityValue = VelocityValue - 0.5f;
+                    VelocityValue = VelocityValue - 0.1f;
                 }
             }
             if (!RightTrigger_Acc.action.IsPressed() && !LeftTrigger_Brake.action.IsPressed())
@@ -74,7 +92,7 @@ public class CustomInput : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 Debug.Log("acc");
-                CarParent.velocity = CarParent.transform.forward * VelocityValue;
+                CarParent.linearVelocity = CarParent.transform.forward * VelocityValue;
                 if (VelocityValue <= 89.9)
                 {
                     VelocityValue = VelocityValue + 0.1f;
@@ -82,23 +100,12 @@ public class CustomInput : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.S))
             {
-                Debug.Log("brake");
-                CarParent.velocity = CarParent.transform.forward * VelocityValue * -1.0f;
+                CarParent.linearVelocity = CarParent.transform.forward * VelocityValue * -1.0f;
                 if (VelocityValue >= -30.0f)
                 {
                     VelocityValue = VelocityValue - 0.1f;
                 }
             }
         }
-        //if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        //{
-        //    if (VelocityValue > 10.0f) { 
-        //        VelocityValue = VelocityValue - 0.1f;
-        //    }
-        //    if (VelocityValue < 10.0f)
-        //    {
-        //        VelocityValue = VelocityValue + 0.1f;
-        //    }
-        //}
     }   
 }

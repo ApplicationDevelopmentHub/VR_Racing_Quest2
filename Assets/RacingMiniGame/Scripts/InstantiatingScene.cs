@@ -19,25 +19,35 @@ public class InstantiatingScene : MonoBehaviour
 
     public GameObject CameraXRRig;
     public Transform[] CameraCustomPositions;
+
+    //enabling car splines
+    public GameObject[] AICarSet;
+    public GameObject[] TrackSplineSet;
+
+    //pool cars
+    public GameObject[] carNew;
+    public GameObject[] xriRig;
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("car index: " + PlayerPrefs.GetInt("CarIndex") + ", track index: " + PlayerPrefs.GetInt("TrackIndex"));
-
         _carIndex = PlayerPrefs.GetInt("CarIndex");
         _trackIndex = PlayerPrefs.GetInt("TrackIndex");
 
+        carNew[_carIndex].SetActive(true);
+        xriRig[_carIndex].SetActive(true);
 
-        GameObject tempCar= Instantiate(CarPrefabList[_carIndex],CarPosition[_carIndex],
-            Quaternion.Euler(carRotation[_carIndex].x, carRotation[_carIndex].y, carRotation[_carIndex].z));
-        tempCar.transform.parent = VRController.transform;
+
+        //GameObject tempCar= Instantiate(CarPrefabList[_carIndex],CarPosition[_carIndex],
+        //    Quaternion.Euler(carRotation[_carIndex].x, carRotation[_carIndex].y, carRotation[_carIndex].z));
+        //tempCar.transform.parent = VRController.transform;
 
         GameObject tempTrack = Instantiate(TrackPrefabList[_trackIndex], TrackPosition[_trackIndex],
             Quaternion.Euler(TrackRotation[_trackIndex].x, TrackRotation[_trackIndex].y, TrackRotation[_trackIndex].z));
         tempTrack.transform.parent = Environment.transform;
 
-        //set camera position
-        //CameraXRRig.transform.position = CameraCustomPositions[_carIndex].position;
+       //enable AI cars and splines
+        AICarSet[_trackIndex].SetActive(true);
+        TrackSplineSet[_trackIndex].SetActive(true);
 
     }
 }

@@ -34,9 +34,9 @@ public class RacingLogic : MonoBehaviour
         //{
         //    Debug.Log("Track not mentioned");
         //}
-        CheckPointFeedback.Car1CP = 0;
-        CheckPointFeedback.Car2CP = 0;
-        CheckPointFeedback.PlayerCarCP = 0;
+        //CheckPointFeedback.Car1CP = 0;
+        //CheckPointFeedback.Car2CP = 0;
+        //CheckPointFeedback.PlayerCarCP = 0;
     }
 
     // Update is called once per frame

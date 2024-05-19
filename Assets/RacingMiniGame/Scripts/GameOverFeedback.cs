@@ -6,7 +6,7 @@ public class GameOverFeedback : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name== "CarParent")
+        if(other.gameObject.name== "CarControlParent")
         {
             Debug.Log("GAME OVER -----------------------");
             GameStateHandler.gameState = GameStateHandler.GameState.End;
